@@ -26,10 +26,17 @@ function getMessage(){
  function sendMessage(e) {
     e.preventDefault()
      if (firstName === "" || lastName === "" || email === "" || subject === "" || message === "") {
-      saveLocalStorage("message", findMessage())      
       errorAlert("Error", "Todos los campos son obligatorios")    
-     }else{
-      questionAlert()       
+     } else {
+      const formData = { firstName, lastName, email, subject, message };
+      saveLocalStorage("contactForm", formData);
+      console.log("Datos capturados:", formData);
+      questionAlert();
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setSubject("");
+      setMessage("");
   }  
  } 
 
@@ -42,26 +49,26 @@ function getMessage(){
                   Los mensajes no se enviarán realmente.
                 </p>
               </div>
-              <form id="contact-form" onsubmit="handleContactSubmit(event)">
+              <form id="contact-form" onSubmit={sendMessage}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                   <div>
                     <label for="firstName" className="block text-sm font-medium text-gray-700 mb-2">NOMBRE</label>
-                    <input type="text" id="firstName" name="firstName" required="" className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all" onChange={(e) => setFirstName(e.target.value)} />
+                    <input type="text" id="firstName" name="firstName" required="" className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                   </div>
                   <div>
                     <label for="lastName" className="block text-sm font-medium text-gray-700 mb-2">APELLIDOS</label>
-                    <input type="text" id="lastName" name="lastName" required="" className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all" onChange={(e) => setLastName(e.target.value)} />
+                    <input type="text" id="lastName" name="lastName" required="" className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all" value={lastName} onChange={(e) => setLastName(e.target.value)} />
                   </div>
                 </div>
 
                 <div className="mb-6">
                   <label for="email" className="block text-sm font-medium text-gray-700 mb-2">EMAIL</label>
-                  <input type="email" id="email" name="email" required="" className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all" onChange={(e) => setEmail(e.target.value)} />
+                  <input type="email" id="email" name="email" required="" className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
 
                 <div className="mb-6">
                   <label for="subject" className="block text-sm font-medium text-gray-700 mb-2">ASUNTO</label>
-                  <select id="subject" name="subject" required="" className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all" onChange={(e) => setSubject(e.target.value)}>
+                  <select id="subject" name="subject" required="" className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all" value={subject} onChange={(e) => setSubject(e.target.value)}>
                     <option value="">Selecciona un asunto</option>
                     <option value="general">Consulta general</option>
                     <option value="product">Información de producto</option>
@@ -73,10 +80,10 @@ function getMessage(){
 
                 <div className="mb-6">
                   <label for="message" className="block text-sm font-medium text-gray-700 mb-2">MENSAJE</label>
-                  <textarea id="message" name="message" rows="5" required="" className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all resize-none" onChange={(e) => setMessage(e.target.value)}></textarea>
+                  <textarea id="message" name="message" rows="5" required="" className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all resize-none" value={message} onChange={(e) => setMessage(e.target.value)}></textarea>
                 </div>
 
-                <button type="submit" className="w-full bg-gray-900 text-white py-4 px-6 hover:bg-gray-800 transition-colors font-semibold tracking-wider" onClick={(e)=>sendMessage(e)}>
+                <button type="submit" className="w-full bg-gray-900 text-white py-4 px-6 hover:bg-gray-800 transition-colors font-semibold tracking-wider">
                   ENVIAR MENSAJE
                 </button>
               </form>

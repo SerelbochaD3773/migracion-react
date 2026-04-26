@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 
 function Footer() {
@@ -17,13 +18,13 @@ function Footer() {
             <h4 class="font-semibold mb-4">ENLACES</h4>
             <ul class="space-y-2 text-gray-300">
               <li>
-                <a href="#" onclick="showPage('home')" class="hover:text-amber-400 transition-colors">Inicio</a>
+                <Link to="/" class="hover:text-amber-400 transition-colors">Inicio</Link>
               </li>
               <li>
-                <a href="#" onclick="showPage('products')" class="hover:text-amber-400 transition-colors">Productos</a>
+                <Link to="/productos" class="hover:text-amber-400 transition-colors">Productos</Link>
               </li>
               <li>
-                <a href="#" onclick="showPage('contact')" class="hover:text-amber-400 transition-colors">Contacto</a>
+                <Link to="/contact" class="hover:text-amber-400 transition-colors">Contacto</Link>
               </li>
             </ul>
           </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
 import ProductCard from '../components/ProductCard'
+import Footer from '../components/Footer'
 
 function Products() {
     return (
@@ -25,7 +26,7 @@ function Products() {
                             <ProductCard
                              name="Jeans Slim Fit"
                              description="Denim Premium Stretch"
-                             image="jeans"
+                             image="jean"
                              price="89"
                              attribute="jean slim fit"/>                       
                             <ProductCard

@@ -5,7 +5,7 @@ function ProductCard(props) {
    <div className="product-card bg-white shadow-lg overflow-hidden">      
       <div className="h-80 bg-gray-200 flex items-center justify-center">
         <img 
-          src={require(`../public/images/card-${props.image}.png`)}   
+          src={`/imagenes/card-${props.image}.png`}   
           alt={props.attribute}      
           className="h-full w-full object-cover" 
         />
