@@ -1,4 +1,11 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from "axios"
+import { end_points } from "../services/api"
+import { questionAlert } from "../helpers/alerts"
+import { errorAlert } from "../helpers/alerts"
+import { saveLocalStorage } from "../helpers/local-storage"
+
+
 function ContactForm() {
  const [firstName, setFirstName] = useState("")
  const [lastName, setLastName] = useState("")
@@ -6,6 +13,25 @@ function ContactForm() {
  const [subject, setSubject] = useState("")
  const [message, setMessage] = useState("")
 
+function getMessage(){
+ fetch(end_points.messages)
+    .then(response => response.json())
+    .then(data => setMessage(data))
+    .catch(error => console.log(error))     
+}
+  useEffect(() => {
+    getMessage()
+  }, [])
+ 
+ function sendMessage(e) {
+    e.preventDefault()
+     if (firstName === "" || lastName === "" || email === "" || subject === "" || message === "") {
+      saveLocalStorage("message", findMessage())      
+      errorAlert("Error", "Todos los campos son obligatorios")    
+     }else{
+      questionAlert()       
+  }  
+ } 
 
   return (
     <div className="bg-white p-8 shadow-lg">
@@ -50,7 +76,7 @@ function ContactForm() {
                   <textarea id="message" name="message" rows="5" required="" className="w-full px-4 py-3 border border-gray-300 focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all resize-none" onChange={(e) => setMessage(e.target.value)}></textarea>
                 </div>
 
-                <button type="submit" className="w-full bg-gray-900 text-white py-4 px-6 hover:bg-gray-800 transition-colors font-semibold tracking-wider">
+                <button type="submit" className="w-full bg-gray-900 text-white py-4 px-6 hover:bg-gray-800 transition-colors font-semibold tracking-wider" onClick={(e)=>sendMessage(e)}>
                   ENVIAR MENSAJE
                 </button>
               </form>
